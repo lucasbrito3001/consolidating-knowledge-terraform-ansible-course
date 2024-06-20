@@ -62,17 +62,6 @@
         source: pull
         tag: 1.27.0
 
-    - name: Pull postgres container image
-      docker_image:
-        name: postgres
-        source: pull
-        tag: 16.3
-
-    - name: Create volume for postgres docker container
-      docker_volume:
-        name: postgres-data
-        driver: local
-
     - name: Create apps docker network
       docker_network:
         name: apps-network
@@ -89,15 +78,3 @@
         volumes:
           - "/etc/nginx:/etc/nginx"
           - "/var/www/html/public:/var/www/html/public"
-
-    - name: Run postgres container
-      docker_container:
-        name: postgres
-        image: postgres
-        state: started
-        ports:
-          - "5432:5432"
-        volumes:
-          - "postgres-data:/var/lib/postgresql"
-        env:
-          POSTGRES_PASSWORD: "{{ postgres_password }}"
