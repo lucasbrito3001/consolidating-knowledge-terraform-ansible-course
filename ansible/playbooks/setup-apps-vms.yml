@@ -62,17 +62,35 @@
         source: pull
         tag: 1.27.0
 
+    - name: Pull sample-flask container image
+      docker_image:
+        name: lucasbrito3001/sample-flask
+        source: pull
+        tag: latest
+
     - name: Create apps docker network
       docker_network:
         name: apps-network
         timeout: 20
         driver: bridge
 
+    - name: Run flask container
+      docker_container:
+        name: flask
+        image: lucasbrito3001/sample-flask
+        state: started
+        networks:
+          - name: apps-network
+        ports:
+          - "5000:5000"
+
     - name: Run nginx container
       docker_container:
         name: nginx
-        image: nginx
+        image: nginx:1.27.0
         state: started
+        networks:
+          - name: apps-network
         ports:
           - "80:80"
         volumes:

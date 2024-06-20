@@ -16,11 +16,3 @@ output "public_vm0_ip_addr" {
 output "private_vm0_ip_addr" {
   value = aws_instance.general_instances["apps-vm0"].private_ip
 }
-
-output "public_vm1_ip_addr" {
-  value = aws_instance.general_instances["apps-vm1"].public_ip
-}
-
-output "private_vm1_ip_addr" {
-  value = aws_instance.general_instances["apps-vm1"].private_ip
-}
